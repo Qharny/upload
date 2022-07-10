@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src= "https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Upload Your Best Memory</title>
+    <!-- css for the wrapper class-->
+  <style type="text/css">
+    .wrapper.active{
+      border: none;
+    }
+    .wrapper .image{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper .image img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    /* .wrapper .icon {
+      font-size: 100px;
+      position: absolute;
+      top: 10%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      background: #9658fe;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+    .wrapper .text {
+      font-size: 20px;
+      font-weight: 500;
+      color: #5B5B7B;
+    }
+    .wrapper #cancel-btn {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #9658fe;
+      display: none;
+    }
+    .wrapper #cancel-btn::before{
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 15px;
+      display: block;
+      font-size: 25px;
+      background: #000;
+      transform: rotate(315deg);
+    }
+    .wrapper #cancel-btn::after{
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 15px;
+      display: block;
+      font-size: 25px;
+      background: #000;
+      transform: rotate(45deg);
+    }
+    .wrapper.active:hover #cancel-btn {
+      display: block;
+    }
+    .wrapper #cancel-btn:hover {
+      color: #ff3838;
+    }
+    .wrapper .file-name {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      color: #fff;
+      padding: 8px 0;
+      font-size: 18px;
+      display: none;
+      background: linear-gradient(135deg, #474646 0%, #7e6e10 100%);
+    }
+
+    .wrapper.active:hover .file-name {
+      display: block;
+    }
+
+  </style>
+</head>
+  <body>
+    <h2>UPLOAD YOUR BEST MEMORY.</h2>
+    <div class="main_page"><!--It contains the whole upload page-->
+      <div class="custom-btn">
+        <!--custom-btn is the add file button-->
+        <button type="button" onclick="defaultBtnActive()" name="button" id="custom-btn">Add file</button>
+      </div>
+      <form class="" action="" method="post">
+        <div class="container">
+          <div class="wrapper">
+            <div class="image">
+              <img src="" alt="">
+              <!--The image appears here-->
+            </div>
+            <div class="content">
+              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <div class="text">No file chosen, yet!</div>
+            </div>
+            <div id="cancel-btn"><i class="fas fa-times"></i></div>
+            <div class="file-name">File name here</div>
+        </div>
+        </div>
+        <input id="default-btn" type="file" name="" value="" multiple hidden>
+        <div class="option">
+          <button id="btn" type="button" name="PREVIEW" onClick="preview();show_lay();" >PREVIEW IMAGE</button>
+          <input id="up-btn" type="submit" name="" value="UPLOAD">
+        </div>
+      </form>
+    </div>
+
+    <!--js-->
+    <!--//I reall don't like js 😂😂-->
+    <script type="text/javascript">
+      const fileName = document.querySelector(".file-name");
+      const cancelBtn = document.querySelector("#cancel-btn");
+      const wrapper = document.querySelector(".wrapper");
+      const defaultBtn = document.querySelector("#default-btn");
+      const customBtn = document.querySelector("#custom-btn");
+      // const previewBtn = document.querySelector("#preview-btn");
+      const img = document.querySelector("img");
+
+      // This function checks if the place holder exists and set to hidden, if so changes it to display information in text box
+      function show_lay() {
+          if (document.getElementByClassName) {
+              var lay = document.getElementByClassName("wrapper");
+              if (lay.style.display = "none") {
+                  lay.style.display = 'block';
+              }
+          }
+      }
+
+      function preview() {
+      // This will take the text entered in the text box and assign it to the preview placeholder area
+      document.getElementByClassName('wrapper').innerHTML = document.container.wrapper.value;
+      }
+      //To prevent displaying the entire path of the image
+      let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\⁓\_ ]+$/; //This diplays the name of the image selected
+
+      //The functions!
+      function defaultBtnActive(){
+          defaultBtn.click();
+      }
+
+      defaultBtn.addEventListener("change", function(){
+          const file = this.files && this.files[0];
+          if (file){
+              const reader = new FileReader();
+              reader.onload = function () {
+                  const result = reader.result;
+                  img.src = result;
+                  wrapper.classList.add("active");
+              }
+              cancelBtn.addEventListener("click", function(){
+                  img.src = "";
+                  wrapper.classList.remove("active"); //it removes the image selected
+              });
+              reader.readAsDataURL(file);
+          }
+          if(this.value){
+              let valueStore = this.value.match(regExp);
+              fileName.textContent = valueStore; //The image name
+          }
+      });
+    </script>
+  </body>
+</html>

@@ -1,2 +1,2 @@
-#upload
-upload your best picture 😜
+#UPLOAD
+upload your best picture 😜 and best memories 

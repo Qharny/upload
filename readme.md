@@ -6,6 +6,4 @@ upload your best picture 😜 and best memories
  _____________
 
 
-I'll work on you soon
-yup...
-you need to be modified real goood
+I think I need to use tailwindcss 

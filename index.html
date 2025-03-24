@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Events | Professional Event Planning</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            color: #2c3e50;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: #fff;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: #e74c3c;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: #f9f9f9;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-img {
+            flex: 1;
+            height: 400px;
+            background-color: #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: #fff;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .portfolio-item {
+            height: 250px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(231, 76, 60, 0.8);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 1rem;
+            display: none;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        
+        .testimonial-nav {
+            margin-top: 2rem;
+        }
+        
+        .testimonial-btn {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .testimonial-btn:hover {
+            color: #e74c3c;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #ddd;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links, .footer-social {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a, .footer-social a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover, .footer-social a:hover {
+            color: #e74c3c;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #999;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-img {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                height: 100vh;
+                width: 250px;
+                background-color: white;
+                flex-direction: column;
+                padding: 5rem 2rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Animation Classes */
+        .fadeIn {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Stellar Events</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Creating Unforgettable Moments</h1>
+                <p>Professional event planning tailored to your vision. From corporate gatherings to dream weddings, we bring your ideas to life.</p>
+                <a href="#contact" class="btn">Book a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">Wedding Planning Image</div>
+                    <div class="service-content">
+                        <h3>Wedding Planning</h3>
+                        <p>Your perfect day deserves perfect planning. From intimate ceremonies to grand celebrations, we handle every detail with care.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">Corporate Events Image</div>
+                    <div class="service-content">
+                        <h3>Corporate Events</h3>
+                        <p>Impress clients and motivate teams with professionally organized conferences, product launches, and team-building events.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img">Social Gatherings Image</div>
+                    <div class="service-content">
+                        <h3>Social Gatherings</h3>
+                        <p>From milestone birthdays to anniversary celebrations, we create memorable experiences for your special moments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Your Vision, Our Expertise</h3>
+                    <p>Stellar Events was founded with a simple mission: to turn your event dreams into reality. With over 10 years of experience in the industry, our team of dedicated professionals brings creativity, attention to detail, and flawless execution to every event we plan.</p>
+                    <p>We believe that each event should be as unique as the client behind it. That's why we take the time to understand your vision, preferences, and goals before crafting a customized plan that exceeds your expectations.</p>
+                    <p>From the initial consultation to the final goodbye, we're with you every step of the way, ensuring a stress-free experience and an unforgettable event.</p>
+                </div>
+                <div class="about-img">
+                    Team Photo
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Our Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    Event Image 1
+                    <div class="portfolio-overlay">
+                        <h4>Luxury Wedding</h4>
+                        <p>Garden Estate, Spring 2024</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    Event Image 2
+                    <div class="portfolio-overlay">
+                        <h4>Tech Conference</h4>
+                        <p>Innovation Center, Winter 2023</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    Event Image 3
+                    <div class="portfolio-overlay">
+                        <h4>Charity Gala</h4>
+                        <p>Grand Hotel, Fall 2023</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    Event Image 4
+                    <div class="portfolio-overlay">
+                        <h4>Product Launch</h4>
+                        <p>Urban Studio, Summer 2023</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    Event Image 5
+                    <div class="portfolio-overlay">
+                        <h4>Anniversary Party</h4>
+                        <p>Seaside Venue, Spring 2023</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    Event Image 6
+                    <div class="portfolio-overlay">
+                        <h4>Corporate Retreat</h4>
+                        <p>Mountain Resort, Winter 2022</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-text">"Stellar Events transformed our wedding day into a magical experience beyond our wildest dreams. Their attention to detail and ability to understand exactly what we wanted was truly impressive."</p>
+                    <p class="testimonial-author">- Jessica & Michael</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"Our annual corporate conference was a huge success thanks to the Stellar Events team. Professional, organized, and creative - they delivered excellence at every turn."</p>
+                    <p class="testimonial-author">- Thomas Anderson, CEO</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"Planning my daughter's sweet sixteen from across the country seemed impossible until we found Stellar Events. They handled everything while keeping us involved in all the important decisions."</p>
+                    <p class="testimonial-author">- Sarah Johnson</p>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="testimonial-btn prev">←</button>
+                    <button class="testimonial-btn next">→</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-form">
+                <form id="event-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Your Phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <select class="form-control" required>
+                            <option value="" disabled selected>Event Type</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="birthday">Birthday Party</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="date" class="form-control" placeholder="Event Date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Tell us about your event" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Stellar Events</div>
+                    <p>Creating unforgettable moments, one event at a time.</p>
+                </div>
+                
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <ul class="footer-social">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Pinterest</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Stellar Events. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Testimonials Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => {
+                testimonial.classList.remove('active');
+            });
+            
+            testimonials[index].classList.add('active');
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            currentTestimonial--;
+            if (currentTestimonial < 0) {
+                currentTestimonial = testimonials.length - 1;
+            }
+            showTestimonial(currentTestimonial);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentTestimonial++;
+            if (currentTestimonial >= testimonials.length) {
+                currentTestimonial = 0;
+            }
+            showTestimonial(currentTestimonial);
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial++;
+            if (currentTestimonial >= testimonials.length) {
+                currentTestimonial = 0;
+            }
+            showTestimonial(currentTestimonial);
+        }, 8000);
+        
+        // Form Submission
+        const eventForm = document.getElementById('event-form');
+        
+        eventForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server
+            alert('Thank you for your message! We will contact you shortly.');
+            eventForm.reset();
+        });
+        
+        // Animation on Scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75 && !section.classList.contains('fadeIn')) {
+                    section.classList.add('fadeIn');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
